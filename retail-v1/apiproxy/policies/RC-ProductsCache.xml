@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ResponseCache continueOnError="false" enabled="true" name="RC-ProductsCache">
+  <CacheResource>ProductsCache</CacheResource>
+  <Scope>Exclusive</Scope>
+  <CacheKey>
+    <KeyFragment ref="proxy.pathsuffix" type="string"/>
+  </CacheKey>
+  <ExpirySettings>
+    <TimeoutInSec>600</TimeoutInSec>
+  </ExpirySettings>
+  <SkipCacheLookup>request.verb != "GET"</SkipCacheLookup>
+  <SkipCachePopulation>request.verb != "GET"</SkipCachePopulation>
+</ResponseCache>

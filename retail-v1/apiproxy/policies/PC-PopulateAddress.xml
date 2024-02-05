@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PopulateCache continueOnError="false" enabled="true" name="PC-PopulateAddress">
+  <CacheResource>AddressesCache</CacheResource>
+  <Scope>Exclusive</Scope>
+  <Source>address</Source>
+  <CacheKey>
+    <KeyFragment ref="lat"/>
+    <KeyFragment ref="lng"/>
+  </CacheKey>
+  <ExpirySettings>
+    <TimeoutInSec>3600</TimeoutInSec>
+  </ExpirySettings>
+</PopulateCache>

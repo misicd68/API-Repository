@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Quota continueOnError="false" enabled="true" name="Q-EnforceQuota" type="calendar">
+  <Identifier ref="client_id"/>
+  <UseQuotaConfigInAPIProduct stepName="VA-VerifyKey">
+    <DefaultConfig>
+      <Allow>2</Allow>
+      <Interval>1</Interval>
+      <TimeUnit>hour</TimeUnit>
+    </DefaultConfig>
+  </UseQuotaConfigInAPIProduct>
+  <Distributed>true</Distributed>
+  <Synchronous>true</Synchronous>
+  <StartTime>2021-01-01 00:00:00</StartTime>
+</Quota>
