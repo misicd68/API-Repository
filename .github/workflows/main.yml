@@ -6,7 +6,7 @@ on:
       - 'main'
     paths:
       - '.github/workflows/main.yaml'
-      - 'src/**'
+      - 'retail-v1/**'
   workflow_dispatch:
 
 jobs:
