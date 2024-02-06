@@ -30,6 +30,10 @@ jobs:
       - name: Upload API Proxy Bundle
         id: upload
         run: "echo \"::set-output name=apigee-revision::$(curl --fail -X POST -H \"Content-Type: multipart/form-data\" -H \"Authorization: Bearer ${{steps.auth.outputs.auth_token}}\" -F \"file=@proxy.zip\" \"https://apigee.googleapis.com/v1/organizations/${{secrets.APIGEE_ORG}}/apis?action=import&name=retail-v1\" --silent | jq --raw-output .revision)\""
+      - name: print revision
+        env:
+         REVISON: ${{ steps.upload.output.apigee_revison}}
+        run: echo "$REVISON"
       # - name: Deploy Revision
        # run: "curl --fail -X POST -H \"Authorization: Bearer ${{steps.auth.outputs.auth_token}}\" \"https://apigee.googleapis.com/v1/organizations/${{ secrets.APIGEE_ORG }}/environments/eval/apis/retail-v1/revisions/${{steps.upload.outputs.apigee-revision}}/deployments?override=true\""
  
