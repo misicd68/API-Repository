@@ -1,0 +1,39 @@
+name: proxy-ci
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - '.github/workflows/api-retail.yaml'
+      - 'retail-v1/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: "Deploy To Apigee"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_DEPLOY_SECRET}}
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.3.0
+      - name: Create API bundle
+        run: zip -r proxy.zip retail-v1/apiproxy
+      - name: Upload API Proxy Bundle
+        id: upload
+        run: "echo \"::set-output name=apigee-revision::$(curl --fail -X POST -H \"Content-Type: multipart/form-data\" -H \"Authorization: Bearer ${{steps.auth.outputs.auth_token}}\" -F \"file=@proxy.zip\" \"https://apigee.googleapis.com/v1/organizations/${{secrets.APIGEE_ORG}}/apis?action=import&name=retail-v1\" --silent | jq --raw-output .revision)\""
+      - name: print revision
+        env:
+         REVISON: ${{ steps.upload.output.apigee-revision}}
+        run: echo "$REVISON"
+      # - name: Deploy Revision
+       # run: "curl --fail -X POST -H \"Authorization: Bearer ${{steps.auth.outputs.auth_token}}\" \"https://apigee.googleapis.com/v1/organizations/${{ secrets.APIGEE_ORG }}/environments/eval/apis/retail-v1/revisions/${{steps.upload.outputs.apigee-revision}}/deployments?override=true\""
+ 
