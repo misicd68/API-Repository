@@ -1,4 +1,4 @@
-name: proxy-ci
+name: retail-v1-deploy
 
 on:
   push:
