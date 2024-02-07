@@ -25,15 +25,15 @@ jobs:
           credentials_json: ${{ secrets.GCP_DEPLOY_SECRET}}
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.3.0
+      - name: bearer token
+        env:
+         BEARER: "Authorization: Bearer ${{steps.auth.outputs.auth_token}}"
+        run: echo "$BEARER"
       - name: Create API bundle
-        run: zip -r proxy.zip retail-v1/apiproxy
+        run: mvn -f pom.xml -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=${{secrets.APIGEE_ORG}} -Denv=$_APIGEE_TEST_ENV
       - name: Upload API Proxy Bundle
         id: upload
-        run: "echo \"::set-output name=apigee-revision::$(curl --fail -X POST -H \"Content-Type: multipart/form-data\" -H \"Authorization: Bearer ${{steps.auth.outputs.auth_token}}\" -F \"file=@proxy.zip\" \"https://apigee.googleapis.com/v1/organizations/${{secrets.APIGEE_ORG}}/apis?action=import&name=retail-v1\" --silent | jq --raw-output .revision)\""
-      - name: print revision
-        env:
-         REVISON: ${{ steps.upload.output.apigee-revision}}
-        run: echo "$REVISON"
+        run: mvn -f pom.xml -ntp apigee-enterprise:deploy -Pdev -Dorg=${{secrets.APIGEE_ORG}} -Denv=$_APIGEE_TEST_ENV -Dbearer=$BEARER
       # - name: Deploy Revision
        # run: "curl --fail -X POST -H \"Authorization: Bearer ${{steps.auth.outputs.auth_token}}\" \"https://apigee.googleapis.com/v1/organizations/${{ secrets.APIGEE_ORG }}/environments/eval/apis/retail-v1/revisions/${{steps.upload.outputs.apigee-revision}}/deployments?override=true\""
  
