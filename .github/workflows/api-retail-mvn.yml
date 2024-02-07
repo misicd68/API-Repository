@@ -30,4 +30,4 @@ jobs:
          ENV: "eval"
         run: echo "$ENV"
       - name: Create API bundle
-        run: mvn install -f ./retail-v1/pom.xml -ntp -Pdev -Dorg=${{secrets.APIGEE_ORG_V1}} -Denv=$ENV -Dfile=$GOOGLE_APPLICATION_CREDENTIALS
+        run: mvn install -f ./retail-v1/pom.xml -ntp -Pdev -Dorg=${{secrets.APIGEE_ORG_V1}} -Dfile=$GOOGLE_APPLICATION_CREDENTIALS -Denv=$ENV 
