@@ -28,12 +28,13 @@ jobs:
       - name: bearer token
         env:
          BEARER: "Authorization: Bearer ${{steps.auth.outputs.auth_token}}"
+         ENV: "eval"
         run: echo "$BEARER"
       - name: Create API bundle
-        run: mvn -f pom.xml -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=${{secrets.APIGEE_ORG}} -Denv=$_APIGEE_TEST_ENV
+        run: mvn -f retail-v1\pom.xml -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=${{secrets.APIGEE_ORG}} -Denv=$ENV
       - name: Upload API Proxy Bundle
         id: upload
-        run: mvn -f pom.xml -ntp apigee-enterprise:deploy -Pdev -Dorg=${{secrets.APIGEE_ORG}} -Denv=$_APIGEE_TEST_ENV -Dbearer=$BEARER
+        run: mvn -f pom.xml -ntp apigee-enterprise:deploy -Pdev -Dorg=${{secrets.APIGEE_ORG}} -Denv=$ENV -Dbearer=$BEARER
       # - name: Deploy Revision
        # run: "curl --fail -X POST -H \"Authorization: Bearer ${{steps.auth.outputs.auth_token}}\" \"https://apigee.googleapis.com/v1/organizations/${{ secrets.APIGEE_ORG }}/environments/eval/apis/retail-v1/revisions/${{steps.upload.outputs.apigee-revision}}/deployments?override=true\""
  
