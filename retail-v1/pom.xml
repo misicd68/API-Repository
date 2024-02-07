@@ -55,6 +55,7 @@
                 <apigee.org>${org}</apigee.org>
                 <apigee.options>override</apigee.options> 
                 <apigee.bearer>${bearer}</apigee.bearer>
+                <apigee.serviceaccount.file>${file}</apigee.serviceaccount.file>
             </properties>
         </profile>
     </profiles>
