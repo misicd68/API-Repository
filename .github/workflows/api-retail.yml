@@ -18,17 +18,16 @@ jobs:
       id-token: 'write'
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - id: auth
+        uses: actions/checkout@v4
+      - name: Auth with Google
+        id: auth
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_DEPLOY_SECRET}}
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.3.0
-      - name: env variables
-        env:
-         ENV: "eval"
-        run: echo "$ENV"
+      - name: Set env variables
+        run: source ./retail-v1/env.sh
       - name: Create API bundle
         id: create
         run: mvn -f ./retail-v1/pom.xml -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=${{secrets.APIGEE_ORG}} -Denv=$ENV
