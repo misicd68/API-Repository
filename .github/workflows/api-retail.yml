@@ -25,15 +25,14 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_DEPLOY_SECRET}}
       - name: Set env variables
-        run: sh ./retail-v1/env.sh
-      - name: Echo envs
+        # run: sh ./retail-v1/env.sh
         run: |
-          echo "$env.APIGEE_ORG"
-          echo "${{env.APIGEE_ORG}}"
+          echo "APIGEE_ORG=apigee-412820" >> "$GITHUB_ENV"
+          echo "APIGEE_ENV=eval" >> "$GITHUB_ENV"
       - name: Create API bundle
         id: create
-        run: mvn -f ./retail-v1/pom.xml -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=${{env.APIGEE_ORG}} -Denv=${{env.APIGEE_ENV}}
+        run: mvn -f ./retail-v1/pom.xml -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=$APIGEE_ORG -Denv=$env.APIGEE_ENV
       - name: Upload API Proxy Bundle
         id: upload
-        run: mvn -f ./retail-v1/pom.xml -X -ntp apigee-enterprise:deploy -Pdev -Dorg=${{env.APIGEE_ORG}} -Denv=${env.APIGEE_ENV}} -Dfile=$GOOGLE_APPLICATION_CREDENTIALS
+        run: mvn -f ./retail-v1/pom.xml -X -ntp apigee-enterprise:deploy -Pdev -Dorg=$env.APIGEE_ORG -Denv=$env.APIGEE_ENV -Dfile=$GOOGLE_APPLICATION_CREDENTIALS
         
