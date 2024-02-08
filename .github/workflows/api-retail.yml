@@ -30,8 +30,8 @@ jobs:
         run: source ./retail-v1/env.sh
       - name: Create API bundle
         id: create
-        run: mvn -f ./retail-v1/pom.xml -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=${{secrets.APIGEE_ORG}} -Denv=$ENV
+        run: mvn -f ./retail-v1/pom.xml -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
       - name: Upload API Proxy Bundle
         id: upload
-        run: mvn -f ./retail-v1/pom.xml -X -ntp apigee-enterprise:deploy -Pdev -Dorg=${{secrets.APIGEE_ORG}} -Denv=$ENV -Dfile=$GOOGLE_APPLICATION_CREDENTIALS
+        run: mvn -f ./retail-v1/pom.xml -X -ntp apigee-enterprise:deploy -Pdev -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dfile=$GOOGLE_APPLICATION_CREDENTIALS
         
