@@ -12,9 +12,6 @@
   </PostFlow>
   <Flows/>
   <HTTPTargetConnection>
-    <LoadBalancer>
-      <Server name="TS-Retail"/>
-    </LoadBalancer>
-    <Path>/training/db</Path>
+    <URL>https://mocktarget.apigee.net/user</URL>
   </HTTPTargetConnection>
 </TargetEndpoint>
