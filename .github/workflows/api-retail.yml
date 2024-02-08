@@ -28,8 +28,6 @@ jobs:
         run: sh ./retail-v1/env.sh
       - name: Echo envs
         run: |
-          echo "Apigee org is ${{APIGEE_ORG}}"
-          echo "Apigee env is $APIGEE_ENV"
           echo "$env.APIGEE_ORG"
           echo "${{env.APIGEE_ORG}}"
       - name: Create API bundle
