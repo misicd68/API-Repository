@@ -31,8 +31,8 @@ jobs:
           echo "APIGEE_ENV=eval" >> "$GITHUB_ENV"
       - name: Create API bundle
         id: create
-        run: mvn -f ./retail-v1/pom.xml -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=$APIGEE_ORG -Denv=$env.APIGEE_ENV
+        run: mvn -f ./retail-v1/pom.xml -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
       - name: Upload API Proxy Bundle
         id: upload
-        run: mvn -f ./retail-v1/pom.xml -X -ntp apigee-enterprise:deploy -Pdev -Dorg=$env.APIGEE_ORG -Denv=$env.APIGEE_ENV -Dfile=$GOOGLE_APPLICATION_CREDENTIALS
+        run: mvn -f ./retail-v1/pom.xml -X -ntp apigee-enterprise:deploy -Pdev -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dfile=$GOOGLE_APPLICATION_CREDENTIALS
         
