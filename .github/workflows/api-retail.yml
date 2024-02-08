@@ -29,7 +29,7 @@ jobs:
       - name: Echo envs
         run: |
           echo "$env.APIGEE_ORG"
-          echo "${{env.APIGEE_ORG}}"
+          echo "${{APIGEE_ORG}}"
       - name: Create API bundle
         id: create
         run: mvn -f ./retail-v1/pom.xml -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
