@@ -96,11 +96,7 @@
     </Flow>
     <Flow name="updateProductById">
       <Description>Update a specific product</Description>
-      <Request>
-        <Step>
-          <Name>FC-BackendCredentials</Name>
-        </Step>
-      </Request>
+      <Request/>
       <Response/>
       <Condition>(proxy.pathsuffix MatchesPath "/products/{productId}") and (request.verb = "PATCH")</Condition>
     </Flow>
