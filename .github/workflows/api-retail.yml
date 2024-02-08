@@ -25,7 +25,11 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_DEPLOY_SECRET}}
       - name: Set env variables
-        run: sh ./retail-v1/env.sh 
+        run: sh ./retail-v1/env.sh
+      - name: Echo envs
+        run: |
+          echo "Apigee org is $APIGEE_ORG"
+          echo "Apigee env is $APIGEE_ENV"
       - name: Create API bundle
         id: create
         run: mvn -f ./retail-v1/pom.xml -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
