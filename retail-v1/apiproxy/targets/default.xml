@@ -12,6 +12,6 @@
   </PostFlow>
   <Flows/>
   <HTTPTargetConnection>
-    <URL>https://mocktarget.apigee.net/user</URL>
+    <URL>https://replaced_by_config_json</URL>
   </HTTPTargetConnection>
 </TargetEndpoint>
