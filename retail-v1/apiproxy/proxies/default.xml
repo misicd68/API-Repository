@@ -140,7 +140,7 @@
     </Flow>
   </Flows>
   <HTTPProxyConnection>
-    <BasePath>/retail/v1</BasePath>
+    <BasePath>/replaced_by_config_json</BasePath>
     <Properties/>
     <VirtualHost>default</VirtualHost>
   </HTTPProxyConnection>
