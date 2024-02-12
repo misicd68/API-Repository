@@ -32,4 +32,8 @@ jobs:
       - name: Create API bundle
         id: create
         run: mvn -f ./retail-v1/pom.xml -X -ntp package -Pdev -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
-        
+      - name: Upload zip file
+        uses: actions/upload-artifact@v4
+        with:
+          name: retail-api-cicd-v1.zip
+          path: /retail-v1/target
