@@ -35,5 +35,5 @@ jobs:
       - name: Upload zip file
         uses: actions/upload-artifact@v4
         with:
-          name: retail-api-cicd-v1.zip
-          path: ./retail-v1/target
+          name: retail-api-cicd-zip
+          path: ./retail-v1/target/retail-api-cicd-v1.zip
