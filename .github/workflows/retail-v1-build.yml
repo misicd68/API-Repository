@@ -1,1 +1,35 @@
-dfas
+name: retail-v1-build
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - '.github/workflows/retail-v1-build.yaml'
+      - 'retail-v1/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: "Build API Proxy"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Auth with Google
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_DEPLOY_SECRET}}
+      - name: Set env variables
+        # run: sh ./retail-v1/env.sh
+        run: |
+          echo "APIGEE_ORG=apigee-412820" >> "$GITHUB_ENV"
+          echo "APIGEE_ENV=eval" >> "$GITHUB_ENV"
+      - name: Create API bundle
+        id: create
+        run: mvn -f ./retail-v1/pom.xml -X -ntp process-resources apigee-enterprise:configure -Pdev -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
+        
