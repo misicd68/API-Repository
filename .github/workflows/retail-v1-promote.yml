@@ -29,7 +29,8 @@ jobs:
         run: |
           echo "APIGEE_ORG=apigee-412820" >> "$GITHUB_ENV"
           echo "APIGEE_ENV=eval-2" >> "$GITHUB_ENV"
+          echo "SOURCE_APIGEE_ENV=eval" >> "$GITHUB_ENV"
       - name: Build and Deploy API Proxy Bundle
         id: upload
-        run: mvn -f ./retail-v1/pom.xml -X -ntp apigee-enterprise:promote -Pdev -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dfile=$GOOGLE_APPLICATION_CREDENTIALS
+        run: mvn -f ./retail-v1/pom.xml -X -ntp apigee-enterprise:promote -Pdev -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dfile=$GOOGLE_APPLICATION_CREDENTIALS -Dapigee.promote.sourceEnv=$SOURCE_APIGEE_ENV
         
