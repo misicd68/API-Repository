@@ -41,7 +41,7 @@
         <org.slf4j.simpleLogger.defaultLogLevel>info</org.slf4j.simpleLogger.defaultLogLevel>
         <project.root.dir>${basedir}</project.root.dir>
         <target.root.dir>${basedir}/target</target.root.dir>
-        <apigee.deploy.version>2.3.5</apigee.deploy.version>
+        <apigee.deploy.version>2.5.0</apigee.deploy.version>
     </properties>
 
     <profiles>
