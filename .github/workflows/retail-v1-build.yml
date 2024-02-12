@@ -31,5 +31,5 @@ jobs:
           echo "APIGEE_ENV=eval" >> "$GITHUB_ENV"
       - name: Create API bundle
         id: create
-        run: mvn -f ./retail-v1/pom.xml -X -ntp package apigee-enterprise:configure -Pdev -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
+        run: mvn -f ./retail-v1/pom.xml -X -ntp package -Pdev -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
         
